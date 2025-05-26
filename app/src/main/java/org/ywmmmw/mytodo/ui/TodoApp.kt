@@ -15,7 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.ywmmmw.mytodo.data.Datasource
 import org.ywmmmw.mytodo.ui.components.Header
+import org.ywmmmw.mytodo.ui.components.TodoList
 import org.ywmmmw.mytodo.ui.theme.MyTodoTheme
 
 
@@ -30,9 +32,14 @@ fun TodoApp(
             modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .padding(start = 10.dp, end = 10.dp)
+                .padding(
+                    start = WindowInsets.safeDrawing.asPaddingValues()
+                        .calculateStartPadding(layoutDirection) + 10.dp,
+                    end = WindowInsets.safeDrawing.asPaddingValues()
+                        .calculateEndPadding(layoutDirection) + 10.dp)
         ) {
             Header()
+            TodoList(Datasource().loadTodos(), modifier = modifier)
         }
     }
 }
